@@ -5,7 +5,7 @@ import{serverConfig} from './config';
 // import { createPingRouter } from './routers/ping.router';  // brute fores way
 import pingRouter from './routers/v1/ping.router';
 import v1Router from './routers/v1/index.routers';
-import v2Router from './routers/v2/index.router';
+// import v2Router from './routers/v2/index.router';
 
 
 
@@ -22,7 +22,7 @@ const app = express();
 
 //==========parrel api moving===================
 app.use('/api/v1',v1Router);
-app.use('/api/v2',v2Router);
+// app.use('/api/v2',v2Router);
 // createPingRouter(app);  // brute fores way
 
 
