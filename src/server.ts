@@ -6,12 +6,13 @@ import{serverConfig} from './config';
 // import pingRouter from './routers/v1/ping.router';
 import v1Router from './routers/v1/index.routers';
 import v2Router from './routers/v2/index.router';
-import { url } from 'inspector';
-import { z } from 'zod';
+// import { url } from 'inspector';
+// import { z } from 'zod';
 
 
 
 const app = express();
+
 
 // app.get('/ping', pingHandler); // routing line
 
@@ -23,10 +24,10 @@ const app = express();
 
 
 //========for read  request body and query params=============
-app.use(express.json());
-app.use(express.text()); 
-//========or============
-app.use(express.urlencoded());
+// app.use(express.json());
+// app.use(express.text()); 
+// //========or============
+// app.use(express.urlencoded());  // eg==%2c etc 
 
 
 //==========parrel api moving===================
@@ -35,7 +36,23 @@ app.use('/api/v2',v2Router);
 // createPingRouter(app);  // brute fores way
 
 
-// loadEnv();
+
+
+
+
+
+//====================// error handling middleware
+import { genericErrorHandler } from './Middlewares/error-middleware'; // this will handle all the errors that are thrown in the application
+// import { genericErrorHandler } from './Middlewares/error-middleware'; // this will handle all the errors that are thrown in the application
+app.use(genericErrorHandler); // this will handle all the errors that are thrown in the application
+
+
+
+
+
+
+
+// ===============================loadEnv();
 
 console.log("Enivironment variable loaded");
 
@@ -44,21 +61,27 @@ app.listen(serverConfig.PORT, () => {
     console.log("press ctrl+c to stop");
 
 
-    // incoming object that i want to test
-    const obj={
-        name:"ankur",
-        age:20
-    }
+    //===========for testing the zod validation layer================
+// import { z } from 'zod';
 
-    // const objSchema=z.object({
+    //=========== incoming object that i want to test for validation
+
+
+    // const obj={
+    //     name:"ankur",
+    //     age:20
+    // }
+
+    // // const objSchema=z.object({
+    // //     name:z.string(),
+    // //     age:z.number().int().positive()
+    // // })
+    // const objSchema2=z.object({
     //     name:z.string(),
     //     age:z.number().int().positive()
     // })
-    const objSchema2=z.object({
-        name:z.string(),
-        age:z.number().int().positive()
-    })
 
-    console.log(objSchema2.parse(obj)); 
+    // console.log(objSchema2.parse(obj)); 
+    // console.log(objSchema2.Parseasync(obj));  // returns a promise
      
 });

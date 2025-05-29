@@ -20,6 +20,10 @@ import { pingSchema } from '../../validators/ping.validator';
 
 const pingRouter = express.Router();
 
+
+//=============for valedation layer of the request body==============
+// =====but it is not good approach to use this way of validation then we use ZOD library for validation layer of the request body========
+
 // function checkBody(req: express.Request, res: express.Response, next: express.NextFunction):void{
     
 //     if(typeof req.body.name!=="string"){
@@ -31,14 +35,15 @@ const pingRouter = express.Router();
 
 
 
-pingRouter.get('/',validateRequestBody(pingSchema), validateQueryParams(queryParamsSchema), pingHandler);
+pingRouter.get('/',validateRequestBody(userSchema), pingHandler);  // TODO :resole this ts complition issue
+// routing line
+pingRouter.get('/',validateRequestBody(pingSchema), pingHandler);  // routing line
 
 pingRouter.get('/health',(req,res)=>{
     res.status(200).send('ok');
 });  // routing line chain
 
 export default pingRouter;
-
 
 
 /**

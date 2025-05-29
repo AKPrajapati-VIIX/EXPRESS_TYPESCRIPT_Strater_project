@@ -1,4 +1,5 @@
 import {NextFunction, Request, Response} from 'express';
+// ===========ZOD library for validation layer of the request body===========
 import { AnyZodObject } from 'zod';
 
 
@@ -23,7 +24,7 @@ export const validateRequestBody= (schema: AnyZodObject) =>{
 
             // console.log("request body is not valid");
             // return;
-            return res.status(400).json(
+            res.status(400).json(
                 {
                     message:"request body is not valid",
                     sucess:false,
@@ -47,7 +48,7 @@ const validateRequestQuery= (schema: AnyZodObject) =>{
 
             // console.log("request body is not valid");
             // return;
-            return res.status(400).json(
+            res.status(400).json(
                 {   
                     message:"request query is not valid",
                     sucess:false,
@@ -58,6 +59,8 @@ const validateRequestQuery= (schema: AnyZodObject) =>{
     }  
 }
 
+// genic function to validate any object using Zod schema
+// this is not a good approach to use this way of validation then we use ZOD library for validation layer of the request body
 const validateObject=(schema: AnyZodObject,object:any, next:NextFunction)=>{
     return async (req:Request, res:Response, next:NextFunction) => {
         
@@ -71,7 +74,7 @@ const validateObject=(schema: AnyZodObject,object:any, next:NextFunction)=>{
 
             // console.log("request body is not valid");
             // return;
-            return res.status(400).json(
+             res.status(400).json(
                 {
                     message:"object is not valid",
                     sucess:false,
